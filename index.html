@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Apple iOS 26 Liquid Glass 3D Scientific Calculator</title>
+  
+  <!-- Apple Web App & Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0b1e">
+  <meta name="description" content="Ultra-advanced scientific calculator in Apple iOS 26 Liquid Glass design with GSAP physics and tactile acoustics.">
+
+  <!-- Google Fonts: Inter, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="nebula">
+
+  <!-- Ambient Liquid Canvas Background -->
+  <canvas id="liquid-canvas"></canvas>
+
+  <!-- Top Apple Dynamic Island Bar -->
+  <header class="top-island" role="toolbar" aria-label="Calculator Controls">
+    <div class="brand-badge">
+      <!-- Apple Silhouette Logo -->
+      <svg viewBox="0 0 170 170" aria-hidden="true">
+        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.85-11.7-14.42-6.19-9.88-10.97-20.9-14.34-33.05-3.37-12.16-5.06-23.77-5.06-34.85 0-14.6 3.65-26.65 10.96-36.14 7.3-9.5 16.48-14.32 27.53-14.48 4.89 0 10.15 1.25 15.77 3.75 5.62 2.5 9.4 3.8 11.34 3.8 1.52 0 5.43-1.35 11.74-4.07 6.3-2.71 11.84-3.96 16.62-3.75 12.82.65 23.25 5.65 31.29 15 3.58 4.23 6.41 8.8 8.48 13.69-10.76 6.52-16.03 15.54-15.82 27.06.22 9.45 3.91 17.38 11.08 23.79 4.35 3.8 9.35 6.41 15 7.82-2.17 6.31-4.89 12.72-8.15 19.22zm-32.06-121.28c0 4.13-1.09 8.37-3.26 12.72-2.18 4.35-5.11 8.04-8.8 11.08-3.48 2.83-7.28 4.67-11.41 5.54-.33-.87-.49-1.9-.49-3.1 0-4.35 1.14-8.75 3.42-13.2 2.29-4.46 5.38-8.15 9.29-11.08 3.59-2.72 7.33-4.57 11.25-5.54 0 1.2.05 2.4.05 3.58z"/>
+      </svg>
+      <span>Scientific</span>
+      <span class="brand-pill-text">iOS 26</span>
+    </div>
+
+    <div class="island-actions">
+      <!-- Mode Menu Button -->
+      <button id="btn-mode-menu" class="pill-badge-btn" title="Calculator Modes & Solvers" aria-label="Open Modes">
+        <span id="active-mode-label">COMP</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- Scientific Mode Toggle -->
+      <button id="btn-toggle-sci" class="icon-btn active" title="Toggle Scientific Drawer" aria-label="Toggle Scientific Mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+        </svg>
+      </button>
+
+      <!-- 3D Spatial Tilt Toggle -->
+      <button id="btn-tilt" class="icon-btn active" title="3D Spatial Perspective" aria-label="Toggle 3D Perspective">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </button>
+
+      <!-- Tactile Sound Toggle -->
+      <button id="btn-sound" class="icon-btn active" title="Tactile Sound Effects" aria-label="Toggle Sound Effects">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+      </button>
+
+      <!-- Calculation History Drawer Button -->
+      <button id="btn-history" class="icon-btn" title="Calculation History" aria-label="Open History">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 14 14"/>
+        </svg>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button id="btn-theme" class="icon-btn" title="Liquid Color Themes" aria-label="Select Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Theme Picker Popover Menu -->
+  <div class="theme-picker-modal" id="theme-modal">
+    <div class="popover-title">Liquid Aesthetics</div>
+    <button class="theme-option active" data-theme="nebula">
+      <span class="theme-swatch swatch-nebula"></span>
+      <span>Liquid Nebula</span>
+    </button>
+    <button class="theme-option" data-theme="frost">
+      <span class="theme-swatch swatch-frost"></span>
+      <span>Titanium Frost</span>
+    </button>
+    <button class="theme-option" data-theme="amber">
+      <span class="theme-swatch swatch-amber"></span>
+      <span>Solar Amber</span>
+    </button>
+    <button class="theme-option" data-theme="aurora">
+      <span class="theme-swatch swatch-aurora"></span>
+      <span>Emerald Aurora</span>
+    </button>
+  </div>
+
+  <!-- Mode Selector Popover Menu -->
+  <div class="mode-picker-modal" id="mode-modal">
+    <div class="popover-title">Scientific Modes & Suites</div>
+    <button class="mode-option active" data-mode="COMP">
+      <div class="mode-icon">📐</div>
+      <div class="mode-text">
+        <span class="mode-name">COMP (Scientific)</span>
+        <span class="mode-desc">General arithmetic, trig & algebra</span>
+      </div>
+    </button>
+    <button class="mode-option" data-mode="BASE">
+      <div class="mode-icon">💻</div>
+      <div class="mode-text">
+        <span class="mode-name">BASE-N Converter</span>
+        <span class="mode-desc">HEX, DEC, OCT, BIN & bitwise ops</span>
+      </div>
+    </button>
+    <button class="mode-option" data-mode="EQN">
+      <div class="mode-icon">⚖️</div>
+      <div class="mode-text">
+        <span class="mode-name">Equation Solver</span>
+        <span class="mode-desc">Linear, Quadratic & 2x2 Systems</span>
+      </div>
+    </button>
+    <button class="mode-option" data-mode="MATRIX">
+      <div class="mode-icon">▦</div>
+      <div class="mode-text">
+        <span class="mode-name">Matrices & Vectors</span>
+        <span class="mode-desc">Determinants, multiplication, dot/cross</span>
+      </div>
+    </button>
+    <button class="mode-option" data-mode="STAT">
+      <div class="mode-icon">📊</div>
+      <div class="mode-text">
+        <span class="mode-name">Statistics & Regression</span>
+        <span class="mode-desc">Mean, StdDev, variance, linear fit</span>
+      </div>
+    </button>
+    <button class="mode-option" data-mode="MEM">
+      <div class="mode-icon">💾</div>
+      <div class="mode-text">
+        <span class="mode-name">Memory Registers</span>
+        <span class="mode-desc">Variables M, Ans, A-D, X, Y</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Main 3D Perspective Stage -->
+  <main class="scene-3d scientific-mode">
+    <!-- Dynamic Floor Ambient Shadow -->
+    <div class="floor-shadow"></div>
+
+    <!-- The 3D Glass Calculator Chassis -->
+    <div class="calculator-card">
+      <!-- Specular Refraction Layer -->
+      <div class="specular-glare"></div>
+
+      <!-- Dual Power Hardware Header (Photovoltaic Solar Strip & Battery) -->
+      <div class="hardware-header" aria-label="Dual Power Supply">
+        <div class="solar-panel" title="Photovoltaic Solar Cell (Reacts to light & 3D tilt)">
+          <div class="solar-cell"></div>
+          <div class="solar-cell"></div>
+          <div class="solar-cell"></div>
+          <div class="solar-cell"></div>
+          <div class="solar-glint"></div>
+        </div>
+
+        <div class="power-status">
+          <span class="solar-indicator active" title="Solar power active">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="solar-label">SOLAR</span>
+          </span>
+          <div class="battery-pill" title="Battery: 98% (Solar Assisted)">
+            <div class="battery-level"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Surface OLED Natural Textbook Glass Display -->
+      <div class="calc-display" title="Click to copy result">
+        <div class="display-meta">
+          <div class="meta-tags">
+            <span class="mode-badge" id="display-mode">COMP</span>
+            <button class="rad-deg-indicator" id="btn-deg-rad" title="Cycle Angle Unit: DEG / RAD / GRAD">DEG</button>
+            <span class="flag-badge" id="flag-2nd">2ND</span>
+            <span class="flag-badge" id="flag-hyp">HYP</span>
+            <span class="flag-badge" id="flag-mem">M</span>
+          </div>
+
+          <span class="copy-hint">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy
+          </span>
+        </div>
+
+        <!-- Multi-line Natural Expression -->
+        <div class="display-expression" aria-live="polite"></div>
+
+        <!-- Primary Output / Input Value -->
+        <div class="display-value-wrap">
+          <div class="display-value" aria-live="assertive">0</div>
+        </div>
+
+        <!-- Copied Toast -->
+        <div class="copied-toast">Copied to Clipboard</div>
+      </div>
+
+      <!-- Keypad -->
+      <div class="calc-keypad">
+        <!-- Expandable Scientific Drawer (5 columns) -->
+        <div class="scientific-drawer">
+          <!-- Row 1 -->
+          <button class="key-btn btn-sci btn-modifier" id="btn-2nd" data-sci="2nd">2nd</button>
+          <button class="key-btn btn-sci btn-modifier" id="btn-hyp" data-sci="hyp">hyp</button>
+          <button class="key-btn btn-sci" data-sci="(">(</button>
+          <button class="key-btn btn-sci" data-sci=")">)</button>
+          <button class="key-btn btn-sci" data-sci="ans">Ans</button>
+
+          <!-- Row 2 -->
+          <button class="key-btn btn-sci" data-sci="sin" data-second="asin">sin</button>
+          <button class="key-btn btn-sci" data-sci="cos" data-second="acos">cos</button>
+          <button class="key-btn btn-sci" data-sci="tan" data-second="atan">tan</button>
+          <button class="key-btn btn-sci" data-sci="log" data-second="exp10">log</button>
+          <button class="key-btn btn-sci" data-sci="ln" data-second="expe">ln</button>
+
+          <!-- Row 3 -->
+          <button class="key-btn btn-sci" data-sci="sqr" data-second="cube">x²</button>
+          <button class="key-btn btn-sci" data-sci="^">xʸ</button>
+          <button class="key-btn btn-sci" data-sci="sqrt" data-second="cbrt">√x</button>
+          <button class="key-btn btn-sci" data-sci="nroot">ⁿ√x</button>
+          <button class="key-btn btn-sci" data-sci="sd" title="Fraction to Decimal (S⇔D)">S⇔D</button>
+
+          <!-- Row 4 -->
+          <button class="key-btn btn-sci" data-sci="inv">1/x</button>
+          <button class="key-btn btn-sci" data-sci="fact">n!</button>
+          <button class="key-btn btn-sci" data-sci="pi">π</button>
+          <button class="key-btn btn-sci" data-sci="e">e</button>
+          <button class="key-btn btn-sci" data-sci="abs">|x|</button>
+        </div>
+
+        <!-- Standard Primary Keypad Grid (4 columns) -->
+        <div class="standard-grid">
+          <!-- Row 1 -->
+          <button class="key-btn btn-function" id="btn-clear" data-action="clear">AC</button>
+          <button class="key-btn btn-function" data-action="toggle-sign">±</button>
+          <button class="key-btn btn-function" data-action="percent">%</button>
+          <button class="key-btn btn-operator" data-action="/">÷</button>
+
+          <!-- Row 2 -->
+          <button class="key-btn" data-num="7">7</button>
+          <button class="key-btn" data-num="8">8</button>
+          <button class="key-btn" data-num="9">9</button>
+          <button class="key-btn btn-operator" data-action="*">×</button>
+
+          <!-- Row 3 -->
+          <button class="key-btn" data-num="4">4</button>
+          <button class="key-btn" data-num="5">5</button>
+          <button class="key-btn" data-num="6">6</button>
+          <button class="key-btn btn-operator" data-action="-">−</button>
+
+          <!-- Row 4 -->
+          <button class="key-btn" data-num="1">1</button>
+          <button class="key-btn" data-num="2">2</button>
+          <button class="key-btn" data-num="3">3</button>
+          <button class="key-btn btn-operator" data-action="+">+</button>
+
+          <!-- Row 5 -->
+          <button class="key-btn" data-num="0">0</button>
+          <button class="key-btn" data-action="decimal">.</button>
+          <button class="key-btn" data-sci="exp">EXP</button>
+          <button class="key-btn btn-equals" data-action="equals">=</button>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- MODULAR LIQUID GLASS SHEETS (Solvers & Suites) -->
+      <!-- ============================================== -->
+
+      <!-- 1. BASE-N Converter Sheet -->
+      <section class="glass-sheet" id="sheet-base" aria-label="Base-N Converter">
+        <div class="sheet-header">
+          <div class="sheet-title">Base-N Calculator & Converter</div>
+          <button class="icon-btn btn-close-sheet" data-close="sheet-base" aria-label="Close Base-N Sheet">✕</button>
+        </div>
+        <div class="sheet-content">
+          <!-- Conversion Table -->
+          <div class="base-display-table">
+            <div class="base-row active" data-base="10">
+              <span class="base-tag">DEC</span>
+              <span class="base-val" id="val-dec">0</span>
+            </div>
+            <div class="base-row" data-base="16">
+              <span class="base-tag">HEX</span>
+              <span class="base-val" id="val-hex">0</span>
+            </div>
+            <div class="base-row" data-base="2">
+              <span class="base-tag">BIN</span>
+              <span class="base-val" id="val-bin">00000000</span>
+            </div>
+            <div class="base-row" data-base="8">
+              <span class="base-tag">OCT</span>
+              <span class="base-val" id="val-oct">0</span>
+            </div>
+          </div>
+          <!-- Bitwise Operators -->
+          <div class="bitwise-grid">
+            <button class="pill-btn btn-bitwise" data-op="AND">AND</button>
+            <button class="pill-btn btn-bitwise" data-op="OR">OR</button>
+            <button class="pill-btn btn-bitwise" data-op="XOR">XOR</button>
+            <button class="pill-btn btn-bitwise" data-op="NOT">NOT</button>
+            <button class="pill-btn btn-bitwise" data-op="SHL">&lt;&lt; SHL</button>
+            <button class="pill-btn btn-bitwise" data-op="SHR">&gt;&gt; SHR</button>
+          </div>
+          <!-- Hex Digits (A-F) -->
+          <div class="hex-grid">
+            <button class="key-btn btn-hex" data-hex="A">A</button>
+            <button class="key-btn btn-hex" data-hex="B">B</button>
+            <button class="key-btn btn-hex" data-hex="C">C</button>
+            <button class="key-btn btn-hex" data-hex="D">D</button>
+            <button class="key-btn btn-hex" data-hex="E">E</button>
+            <button class="key-btn btn-hex" data-hex="F">F</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Equation Solver Sheet -->
+      <section class="glass-sheet" id="sheet-eqn" aria-label="Equation Solvers">
+        <div class="sheet-header">
+          <div class="sheet-title">Equation Solver</div>
+          <button class="icon-btn btn-close-sheet" data-close="sheet-eqn" aria-label="Close Equation Sheet">✕</button>
+        </div>
+        <div class="sheet-tabs">
+          <button class="sheet-tab active" data-tab="eqn-quad">Quadratic (ax²+bx+c=0)</button>
+          <button class="sheet-tab" data-tab="eqn-lin">Linear (ax+b=0)</button>
+          <button class="sheet-tab" data-tab="eqn-sys">2×2 System</button>
+        </div>
+        <div class="sheet-content">
+          <!-- Quadratic -->
+          <div class="tab-pane active" id="pane-eqn-quad">
+            <div class="inputs-row">
+              <div class="input-field">
+                <label>a</label>
+                <input type="number" id="quad-a" value="1" step="any">
+              </div>
+              <div class="input-field">
+                <label>b</label>
+                <input type="number" id="quad-b" value="-5" step="any">
+              </div>
+              <div class="input-field">
+                <label>c</label>
+                <input type="number" id="quad-c" value="6" step="any">
+              </div>
+            </div>
+            <button class="action-submit-btn" id="btn-solve-quad">Solve Quadratic</button>
+            <div class="solver-result-box" id="res-quad">Roots: x₁ = 3, x₂ = 2</div>
+          </div>
+
+          <!-- Linear -->
+          <div class="tab-pane" id="pane-eqn-lin">
+            <div class="inputs-row">
+              <div class="input-field">
+                <label>a</label>
+                <input type="number" id="lin-a" value="2" step="any">
+              </div>
+              <div class="input-field">
+                <label>b</label>
+                <input type="number" id="lin-b" value="-8" step="any">
+              </div>
+            </div>
+            <button class="action-submit-btn" id="btn-solve-lin">Solve Linear</button>
+            <div class="solver-result-box" id="res-lin">Solution: x = 4</div>
+          </div>
+
+          <!-- 2x2 System -->
+          <div class="tab-pane" id="pane-eqn-sys">
+            <div class="sys-row">
+              <span>Eq 1:</span>
+              <input type="number" id="sys-a1" value="2" placeholder="a1" step="any">x +
+              <input type="number" id="sys-b1" value="1" placeholder="b1" step="any">y =
+              <input type="number" id="sys-c1" value="7" placeholder="c1" step="any">
+            </div>
+            <div class="sys-row">
+              <span>Eq 2:</span>
+              <input type="number" id="sys-a2" value="1" placeholder="a2" step="any">x −
+              <input type="number" id="sys-b2" value="1" placeholder="b2" step="any">y =
+              <input type="number" id="sys-c2" value="2" placeholder="c2" step="any">
+            </div>
+            <button class="action-submit-btn" id="btn-solve-sys">Solve 2×2 System</button>
+            <div class="solver-result-box" id="res-sys">x = 3, y = 1</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Matrix & Vector Sheet -->
+      <section class="glass-sheet" id="sheet-matrix" aria-label="Matrix and Vector Suite">
+        <div class="sheet-header">
+          <div class="sheet-title">Matrix & Vector Suite</div>
+          <button class="icon-btn btn-close-sheet" data-close="sheet-matrix" aria-label="Close Matrix Sheet">✕</button>
+        </div>
+        <div class="sheet-tabs">
+          <button class="sheet-tab active" data-tab="mat-2x2">2×2 Matrix</button>
+          <button class="sheet-tab" data-tab="mat-3x3">3×3 Matrix</button>
+          <button class="sheet-tab" data-tab="mat-vec">3D Vector</button>
+        </div>
+        <div class="sheet-content">
+          <!-- 2x2 Matrix Pane -->
+          <div class="tab-pane active" id="pane-mat-2x2">
+            <div class="matrix-grid-2x2">
+              <input type="number" id="m2-00" value="4">
+              <input type="number" id="m2-01" value="7">
+              <input type="number" id="m2-10" value="2">
+              <input type="number" id="m2-11" value="6">
+            </div>
+            <div class="matrix-actions">
+              <button class="pill-btn" id="btn-mat-det2">Determinant</button>
+              <button class="pill-btn" id="btn-mat-inv2">Inverse</button>
+              <button class="pill-btn" id="btn-mat-trans2">Transpose</button>
+            </div>
+            <div class="solver-result-box" id="res-mat-2x2">det(A) = 10</div>
+          </div>
+
+          <!-- 3x3 Matrix Pane -->
+          <div class="tab-pane" id="pane-mat-3x3">
+            <div class="matrix-grid-3x3">
+              <input type="number" id="m3-00" value="1"><input type="number" id="m3-01" value="2"><input type="number" id="m3-02" value="3">
+              <input type="number" id="m3-10" value="0"><input type="number" id="m3-11" value="1"><input type="number" id="m3-12" value="4">
+              <input type="number" id="m3-20" value="5"><input type="number" id="m3-21" value="6"><input type="number" id="m3-22" value="0">
+            </div>
+            <div class="matrix-actions">
+              <button class="pill-btn" id="btn-mat-det3">Determinant</button>
+              <button class="pill-btn" id="btn-mat-trans3">Transpose</button>
+            </div>
+            <div class="solver-result-box" id="res-mat-3x3">det(A) = 1</div>
+          </div>
+
+          <!-- 3D Vector Pane -->
+          <div class="tab-pane" id="pane-mat-vec">
+            <div class="vector-input-row">
+              <span>Vector u: [</span>
+              <input type="number" id="vec-u0" value="1">
+              <input type="number" id="vec-u1" value="2">
+              <input type="number" id="vec-u2" value="3">
+              <span>]</span>
+            </div>
+            <div class="vector-input-row">
+              <span>Vector v: [</span>
+              <input type="number" id="vec-v0" value="4">
+              <input type="number" id="vec-v1" value="5">
+              <input type="number" id="vec-v2" value="6">
+              <span>]</span>
+            </div>
+            <div class="matrix-actions">
+              <button class="pill-btn" id="btn-vec-dot">Dot Product (u·v)</button>
+              <button class="pill-btn" id="btn-vec-cross">Cross Product (u×v)</button>
+              <button class="pill-btn" id="btn-vec-mag">|u| Magnitude</button>
+            </div>
+            <div class="solver-result-box" id="res-vec">u · v = 32</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Statistics & Regression Sheet -->
+      <section class="glass-sheet" id="sheet-stat" aria-label="Statistical Analysis">
+        <div class="sheet-header">
+          <div class="sheet-title">Statistics & Linear Regression</div>
+          <button class="icon-btn btn-close-sheet" data-close="sheet-stat" aria-label="Close Statistics Sheet">✕</button>
+        </div>
+        <div class="sheet-tabs">
+          <button class="sheet-tab active" data-tab="stat-1var">1-Variable Statistics</button>
+          <button class="sheet-tab" data-tab="stat-2var">2-Variable Regression</button>
+        </div>
+        <div class="sheet-content">
+          <!-- 1-Variable Pane -->
+          <div class="tab-pane active" id="pane-stat-1var">
+            <label class="input-label">Data points (separated by commas or spaces):</label>
+            <input type="text" class="text-data-input" id="stat-data-1" value="12, 15, 18, 22, 29, 31, 35">
+            <button class="action-submit-btn" id="btn-calc-stat1">Compute 1-Var Statistics</button>
+            <div class="stats-result-grid" id="res-stat-grid">
+              <div class="stat-cell"><span class="k">n:</span> <span class="v" id="st-n">7</span></div>
+              <div class="stat-cell"><span class="k">Mean (x̄):</span> <span class="v" id="st-mean">23.14</span></div>
+              <div class="stat-cell"><span class="k">Sum (Σx):</span> <span class="v" id="st-sum">162</span></div>
+              <div class="stat-cell"><span class="k">Sample s:</span> <span class="v" id="st-sd-s">8.84</span></div>
+              <div class="stat-cell"><span class="k">Pop σ:</span> <span class="v" id="st-sd-p">8.18</span></div>
+              <div class="stat-cell"><span class="k">Median:</span> <span class="v" id="st-med">22</span></div>
+              <div class="stat-cell"><span class="k">Min:</span> <span class="v" id="st-min">12</span></div>
+              <div class="stat-cell"><span class="k">Max:</span> <span class="v" id="st-max">35</span></div>
+            </div>
+          </div>
+
+          <!-- 2-Variable Regression Pane -->
+          <div class="tab-pane" id="pane-stat-2var">
+            <label class="input-label">X values:</label>
+            <input type="text" class="text-data-input" id="stat-data-x" value="1, 2, 3, 4, 5">
+            <label class="input-label">Y values:</label>
+            <input type="text" class="text-data-input" id="stat-data-y" value="2.1, 3.9, 6.2, 8.1, 9.9">
+            <button class="action-submit-btn" id="btn-calc-stat2">Compute Linear Regression</button>
+            <div class="solver-result-box" id="res-stat2">
+              Equation: y = 1.9700x + 0.1300<br>
+              Pearson Correlation r = 0.9997, r² = 0.9994
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Memory Registers Sheet -->
+      <section class="glass-sheet" id="sheet-mem" aria-label="Memory Registers">
+        <div class="sheet-header">
+          <div class="sheet-title">Memory Registers</div>
+          <button class="icon-btn btn-close-sheet" data-close="sheet-mem" aria-label="Close Memory Sheet">✕</button>
+        </div>
+        <div class="sheet-content">
+          <div class="memory-grid">
+            <div class="mem-card" data-reg="M">
+              <div class="mem-name">M (Memory)</div>
+              <div class="mem-val" id="mem-val-M">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="M">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="M">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="Ans">
+              <div class="mem-name">Ans (Last Result)</div>
+              <div class="mem-val" id="mem-val-Ans">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="Ans">RCL</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="A">
+              <div class="mem-name">Register A</div>
+              <div class="mem-val" id="mem-val-A">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="A">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="A">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="B">
+              <div class="mem-name">Register B</div>
+              <div class="mem-val" id="mem-val-B">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="B">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="B">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="C">
+              <div class="mem-name">Register C</div>
+              <div class="mem-val" id="mem-val-C">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="C">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="C">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="D">
+              <div class="mem-name">Register D</div>
+              <div class="mem-val" id="mem-val-D">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="D">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="D">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="X">
+              <div class="mem-name">Register X</div>
+              <div class="mem-val" id="mem-val-X">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="X">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="X">STO</button>
+              </div>
+            </div>
+            <div class="mem-card" data-reg="Y">
+              <div class="mem-name">Register Y</div>
+              <div class="mem-val" id="mem-val-Y">0</div>
+              <div class="mem-actions">
+                <button class="pill-mini-btn btn-mem-recall" data-reg="Y">RCL</button>
+                <button class="pill-mini-btn btn-mem-store" data-reg="Y">STO</button>
+              </div>
+            </div>
+          </div>
+          <div class="memory-footer">
+            <button class="secondary-pill-btn danger-text" id="btn-clear-all-mem">Clear All Memory</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Glass Flyout History Drawer -->
+      <aside class="history-drawer" aria-label="Calculation History">
+        <div class="history-header">
+          <div class="history-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 14 14"/>
+            </svg>
+            <span>History</span>
+          </div>
+          <button id="btn-close-history" class="icon-btn" title="Close History" aria-label="Close History">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="history-list">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="history-footer">
+          <button id="btn-clear-history" class="secondary-pill-btn danger-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+            Clear History
+          </button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Bottom Keyboard Guide Hint -->
+  <footer class="keyboard-hint">
+    <span>Keys:</span>
+    <kbd>0-9</kbd>
+    <kbd>+ - * /</kbd>
+    <kbd>(</kbd>
+    <kbd>)</kbd>
+    <kbd>Enter</kbd>
+    <kbd>Esc</kbd>
+  </footer>
+
+  <!-- GSAP Library: Local bundle first, CDN fallback -->
+  <script src="vendor/gsap.min.js"></script>
+  <script>
+    if (typeof gsap === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- Application Logic Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/liquid-bg.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
