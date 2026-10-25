@@ -26,20 +26,20 @@
 
   <!-- Top Apple Dynamic Island Bar -->
   <header class="top-island" role="toolbar" aria-label="Calculator Controls">
-    <div class="brand-badge">
+    <div class="brand-badge" title="Apple 3D Glass Calculator">
       <!-- Apple Silhouette Logo -->
       <svg viewBox="0 0 170 170" aria-hidden="true">
         <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.85-11.7-14.42-6.19-9.88-10.97-20.9-14.34-33.05-3.37-12.16-5.06-23.77-5.06-34.85 0-14.6 3.65-26.65 10.96-36.14 7.3-9.5 16.48-14.32 27.53-14.48 4.89 0 10.15 1.25 15.77 3.75 5.62 2.5 9.4 3.8 11.34 3.8 1.52 0 5.43-1.35 11.74-4.07 6.3-2.71 11.84-3.96 16.62-3.75 12.82.65 23.25 5.65 31.29 15 3.58 4.23 6.41 8.8 8.48 13.69-10.76 6.52-16.03 15.54-15.82 27.06.22 9.45 3.91 17.38 11.08 23.79 4.35 3.8 9.35 6.41 15 7.82-2.17 6.31-4.89 12.72-8.15 19.22zm-32.06-121.28c0 4.13-1.09 8.37-3.26 12.72-2.18 4.35-5.11 8.04-8.8 11.08-3.48 2.83-7.28 4.67-11.41 5.54-.33-.87-.49-1.9-.49-3.1 0-4.35 1.14-8.75 3.42-13.2 2.29-4.46 5.38-8.15 9.29-11.08 3.59-2.72 7.33-4.57 11.25-5.54 0 1.2.05 2.4.05 3.58z"/>
       </svg>
-      <span>Scientific</span>
-      <span class="brand-pill-text">iOS 26</span>
     </div>
 
     <div class="island-actions">
-      <!-- Mode Menu Button -->
-      <button id="btn-mode-menu" class="pill-badge-btn" title="Calculator Modes & Solvers" aria-label="Open Modes">
-        <span id="active-mode-label">COMP</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Eye-Catching Mode Menu Button -->
+      <button id="btn-mode-menu" class="mode-selector-btn eye-catching-pulse" title="Select Scientific Mode (COMP, BASE-N, EQN, MATRIX, STAT, MEM)" aria-label="Open Modes">
+        <span class="mode-btn-icon">⚡</span>
+        <span class="mode-btn-title">MODE:</span>
+        <span class="mode-btn-current" id="active-mode-label">COMP</span>
+        <svg class="mode-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </button>
@@ -222,6 +222,16 @@
 
         <!-- Copied Toast -->
         <div class="copied-toast">Copied to Clipboard</div>
+      </div>
+
+      <!-- Quick Mode Switcher Bar (Instant 1-Click Access) -->
+      <div class="quick-mode-bar" role="tablist" aria-label="Calculator Modes">
+        <button class="quick-mode-tab active" data-mode="COMP" title="Standard & Scientific Math">📐 COMP</button>
+        <button class="quick-mode-tab" data-mode="BASE" title="Base-N (HEX/DEC/BIN/OCT)">💻 BASE</button>
+        <button class="quick-mode-tab" data-mode="EQN" title="Equation Solver">⚖️ EQN</button>
+        <button class="quick-mode-tab" data-mode="MATRIX" title="Matrices & 3D Vectors">▦ MATRIX</button>
+        <button class="quick-mode-tab" data-mode="STAT" title="Statistics & Regression">📊 STAT</button>
+        <button class="quick-mode-tab" data-mode="MEM" title="Memory Registers">💾 MEM</button>
       </div>
 
       <!-- Keypad -->

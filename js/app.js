@@ -410,6 +410,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Quick Mode Switcher Bar Clicks
+  document.querySelectorAll('.quick-mode-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const mode = tab.dataset.mode;
+      selectMode(mode);
+      audio.playDigit();
+    });
+  });
+
   // Close modals on outside click
   document.addEventListener('click', (e) => {
     if (themePicker && themePicker.classList.contains('visible') && !themePicker.contains(e.target) && e.target !== toggleThemeBtn) {
@@ -427,6 +436,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.mode-option').forEach((opt) => {
       opt.classList.toggle('active', opt.dataset.mode === mode);
+    });
+
+    document.querySelectorAll('.quick-mode-tab').forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.mode === mode);
     });
 
     if (mode === 'COMP') {

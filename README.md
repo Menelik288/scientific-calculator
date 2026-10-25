@@ -2,6 +2,21 @@
 
 An ultra-refined, futuristic 3D scientific calculator engineered with **Apple iOS 26 Liquid Glass Glassmorphism**, interactive **GSAP 3 physics**, tactile acoustic feedback, and dynamic 3D spatial perspective.
 
+[![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-00dfd8?style=for-the-badge&logo=vercel)](https://calculator-teal-xi-43.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Menelik288/scientific-calculator)
+
+---
+
+## 📸 Screenshots & Previews
+
+<div align="center">
+  <h3>Desktop 3D Liquid Glass Perspective</h3>
+  <img src="screenshots/scientific-calculator-main.png" alt="Apple iOS 26 Liquid Glass 3D Scientific Calculator Desktop" width="850" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+  <br><br>
+  <h3>Mobile Responsive View</h3>
+  <img src="screenshots/scientific-calculator-mobile.png" alt="Apple iOS 26 Liquid Glass 3D Scientific Calculator Mobile" width="360" style="border-radius: 24px; box-shadow: 0 15px 30px rgba(0,0,0,0.5);">
+</div>
+
 ---
 
 ## 🌟 Visual & Hardware Simulation Highlights
