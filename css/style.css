@@ -124,9 +124,10 @@ body[data-theme="aurora"] {
 
 html, body {
   width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   font-family: var(--font-main);
   background-color: var(--theme-bg-1);
   color: var(--text-primary);
@@ -151,18 +152,18 @@ html, body {
   transform: translateZ(0);
 }
 
-/* Top Floating Apple Island / Bar */
+/* Top Floating Island / Bar */
 .top-island {
   position: fixed;
-  top: 20px;
+  top: clamp(8px, 1.8vh, 16px);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  padding: 8px 16px;
+  padding: clamp(4px, 0.8vh, 6px) clamp(10px, 2vw, 16px);
   border-radius: 9999px;
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   z-index: 100;
@@ -304,18 +305,21 @@ html, body {
   z-index: 10;
   width: 100%;
   max-width: 440px;
-  padding: 18px;
+  height: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: clamp(38px, 6vh, 52px) clamp(8px, 2vw, 16px) clamp(6px, 1vh, 12px);
   perspective: 1400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 55px;
-  margin-bottom: 25px;
+  margin: 0 auto;
+  box-sizing: border-box;
   transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scene-3d.scientific-mode {
-  max-width: 500px;
+  max-width: 460px;
 }
 
 /* Dynamic Floor Shadow */
@@ -323,7 +327,7 @@ html, body {
   position: absolute;
   bottom: 0px;
   width: 86%;
-  height: 45px;
+  height: 35px;
   border-radius: 50%;
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 75%);
   filter: blur(16px);
@@ -336,18 +340,23 @@ html, body {
 .calculator-card {
   position: relative;
   width: 100%;
-  border-radius: 40px;
+  max-height: calc(100dvh - clamp(46px, 7.5vh, 64px));
+  border-radius: clamp(24px, 4vw, 36px);
   background: var(--glass-card-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-inner-shadow), var(--glass-outer-shadow);
   transform-style: preserve-3d;
-  padding: 22px 20px 24px;
+  padding: clamp(10px, 1.6vh, 18px) clamp(10px, 2.5vw, 18px);
   overflow: hidden;
   will-change: transform;
   z-index: 2;
   transition: border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 /* Iridescent Prismatic Outer Ring */
@@ -391,15 +400,16 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  padding: 4px 6px 6px;
+  margin-bottom: clamp(4px, 0.8vh, 8px);
+  padding: 0 4px 2px;
   transform: translateZ(8px);
+  flex-shrink: 0;
 }
 
 .solar-panel {
   position: relative;
-  width: 140px;
-  height: 22px;
+  width: clamp(90px, 25vw, 130px);
+  height: clamp(14px, 2vh, 18px);
   background: linear-gradient(180deg, #0f182c 0%, #060914 100%);
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -506,19 +516,20 @@ html, body {
   background: rgba(6, 9, 18, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 26px;
+  border-radius: clamp(16px, 3vw, 24px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.2);
-  padding: 16px 18px 14px;
-  margin-bottom: 16px;
+  padding: clamp(8px, 1.4vh, 12px) clamp(10px, 2.5vw, 16px);
+  margin-bottom: clamp(6px, 1vh, 10px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 110px;
+  min-height: clamp(60px, 9.5vh, 90px);
   transform: translateZ(10px);
   overflow: hidden;
   cursor: pointer;
   transition: background 0.25s, border-color 0.25s;
+  flex-shrink: 0;
 }
 
 .calc-display:hover {
@@ -602,8 +613,8 @@ html, body {
 }
 
 .display-expression {
-  min-height: 20px;
-  font-size: 13px;
+  min-height: clamp(14px, 1.8vh, 18px);
+  font-size: clamp(11px, 1.5vh, 13px);
   color: var(--text-secondary);
   text-align: right;
   letter-spacing: 0.5px;
@@ -623,7 +634,7 @@ html, body {
 }
 
 .display-value {
-  font-size: 42px;
+  font-size: clamp(24px, 4.2vh, 40px);
   font-weight: 300;
   line-height: 1.1;
   letter-spacing: -1.2px;
@@ -659,12 +670,13 @@ html, body {
 .quick-mode-bar {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 12px;
+  gap: clamp(3px, 0.8vw, 6px);
+  margin-bottom: clamp(6px, 1vh, 10px);
   overflow-x: auto;
   padding: 2px 2px 4px;
   transform: translateZ(12px);
   scrollbar-width: none;
+  flex-shrink: 0;
 }
 
 .quick-mode-bar::-webkit-scrollbar {
@@ -675,11 +687,11 @@ html, body {
   flex: 1;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
+  border-radius: clamp(6px, 1.2vw, 10px);
   color: rgba(255, 255, 255, 0.75);
-  font-size: 11px;
+  font-size: clamp(9px, 1.3vh, 11px);
   font-weight: 600;
-  padding: 6px 8px;
+  padding: clamp(3px, 0.6vh, 6px) clamp(4px, 1vw, 8px);
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -707,53 +719,59 @@ html, body {
 .calc-keypad {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: clamp(4px, 0.8vh, 8px);
   transform: translateZ(16px);
+  flex: 1 1 auto;
+  min-height: 0;
+  justify-content: flex-end;
 }
 
 /* Scientific Drawer */
 .scientific-drawer {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  gap: clamp(3px, 0.6vh, 6px);
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-bottom 0.45s ease;
   margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .scientific-mode .scientific-drawer {
-  max-height: 260px;
+  max-height: clamp(110px, 22vh, 180px);
   opacity: 1;
-  margin-bottom: 8px;
+  margin-bottom: clamp(3px, 0.6vh, 6px);
 }
 
 /* Standard Keypad Grid */
 .standard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: clamp(4px, 0.8vh, 8px);
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 /* Apple Liquid 3D Button */
 .key-btn {
   position: relative;
-  aspect-ratio: 1 / 1;
-  border-radius: 20px;
+  height: clamp(32px, 5.2vh, 48px);
+  border-radius: clamp(10px, 2vw, 16px);
   background: var(--btn-num-bg);
   border: 1px solid var(--btn-num-border);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 5px 14px -3px rgba(0, 0, 0, 0.45);
   color: var(--btn-num-color);
   font-family: var(--font-main);
-  font-size: 20px;
+  font-size: clamp(16px, 2.5vh, 20px);
   font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
-  transform: translateZ(14px);
+  transform: translateZ(12px);
   transform-style: preserve-3d;
   transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
   overflow: hidden;
@@ -766,7 +784,7 @@ html, body {
   border-color: var(--btn-fn-border);
   color: var(--btn-fn-color);
   font-weight: 500;
-  font-size: 18px;
+  font-size: clamp(14px, 2.2vh, 18px);
 }
 
 /* Operator Keys (+, -, *, /) */
@@ -774,7 +792,7 @@ html, body {
   background: var(--btn-op-bg);
   border-color: var(--btn-op-border);
   color: var(--btn-op-color);
-  font-size: 24px;
+  font-size: clamp(18px, 2.8vh, 24px);
   font-weight: 500;
   box-shadow: 0 5px 18px -2px var(--btn-op-glow), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
@@ -791,21 +809,22 @@ html, body {
   background: var(--btn-equals-bg);
   border-color: var(--btn-equals-border);
   color: #ffffff;
-  font-size: 26px;
+  font-size: clamp(20px, 3.2vh, 26px);
   box-shadow: 0 7px 22px -2px var(--btn-equals-glow), inset 0 1px 1.5px rgba(255, 255, 255, 0.6);
 }
 
 /* Scientific Keys */
 .key-btn.btn-sci {
   aspect-ratio: auto;
-  height: 40px;
-  border-radius: 12px;
-  font-size: 13px;
+  height: clamp(24px, 3.8vh, 34px);
+  border-radius: clamp(6px, 1.4vw, 10px);
+  font-size: clamp(10px, 1.5vh, 12px);
   font-weight: 500;
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.9);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 3px 8px rgba(0, 0, 0, 0.3);
+  padding: 0;
 }
 
 .key-btn.btn-sci:hover {
@@ -1473,59 +1492,158 @@ html, body {
 }
 
 /* ==========================================================================
-   Mobile-First Responsive Design (360px - 480px)
+   Mobile-First & All-Device Responsive Design
+   Prevents any vertical scrolling and fits 100% of screens perfectly
    ========================================================================== */
+@media (max-width: 600px), (max-height: 750px) {
+  .keyboard-hint {
+    display: none !important;
+  }
+}
+
 @media (max-width: 480px) {
   .scene-3d {
-    padding: 10px;
-    max-width: 98vw;
-    margin-top: 55px;
+    padding: clamp(38px, 5.5vh, 48px) clamp(6px, 1.5vw, 10px) clamp(4px, 0.8vh, 8px);
+    max-width: 100vw;
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0 auto;
   }
   .scene-3d.scientific-mode {
-    max-width: 98vw;
+    max-width: 100vw;
   }
   .calculator-card {
-    border-radius: 32px;
-    padding: 16px 14px 18px;
+    border-radius: clamp(20px, 4vw, 28px);
+    padding: clamp(8px, 1.2vh, 12px) clamp(8px, 2vw, 12px);
+    max-height: calc(100dvh - clamp(44px, 6vh, 54px));
+    width: 100%;
+    max-width: 410px;
   }
   .solar-panel {
-    width: 110px;
-    height: 18px;
+    width: clamp(80px, 22vw, 105px);
+    height: clamp(12px, 1.6vh, 16px);
   }
   .calc-display {
-    min-height: 95px;
-    padding: 12px 14px 10px;
-    border-radius: 20px;
+    min-height: clamp(52px, 8.5vh, 75px);
+    padding: clamp(6px, 1vh, 8px) clamp(8px, 2vw, 12px);
+    border-radius: clamp(14px, 2.5vw, 18px);
+    margin-bottom: clamp(4px, 0.6vh, 6px);
   }
   .display-value {
-    font-size: 34px;
+    font-size: clamp(22px, 3.8vh, 32px);
+  }
+  .display-expression {
+    min-height: clamp(12px, 1.5vh, 16px);
+    font-size: clamp(10px, 1.3vh, 12px);
+  }
+  .quick-mode-bar {
+    gap: 3px;
+    margin-bottom: clamp(4px, 0.6vh, 6px);
+  }
+  .quick-mode-tab {
+    padding: clamp(3px, 0.5vh, 5px) 6px;
+    font-size: 9.5px;
+  }
+  .calc-keypad {
+    gap: clamp(3px, 0.6vh, 6px);
   }
   .key-btn {
-    border-radius: 16px;
-    font-size: 18px;
+    height: clamp(30px, 4.8vh, 42px);
+    border-radius: clamp(8px, 1.8vw, 13px);
+    font-size: clamp(15px, 2.3vh, 18px);
   }
   .key-btn.btn-sci {
-    height: 36px;
-    font-size: 11px;
-    border-radius: 10px;
+    height: clamp(22px, 3.4vh, 30px);
+    font-size: clamp(9.5px, 1.3vh, 11px);
+    border-radius: clamp(5px, 1.2vw, 8px);
   }
   .scientific-drawer {
-    gap: 6px;
+    gap: clamp(2px, 0.5vh, 4px);
+  }
+  .scientific-mode .scientific-drawer {
+    max-height: clamp(100px, 20vh, 140px);
+    margin-bottom: clamp(2px, 0.5vh, 5px);
   }
   .standard-grid {
-    gap: 8px;
+    gap: clamp(3px, 0.6vh, 6px);
   }
   .top-island {
-    top: 10px;
-    padding: 6px 12px;
-  }
-  .brand-badge span {
-    display: none;
-  }
-  .brand-pill-text {
-    display: inline-block !important;
+    top: clamp(6px, 1.2vh, 10px);
+    padding: 4px 10px;
   }
   .mode-picker-modal {
     width: 90vw;
+  }
+}
+
+/* Compact Mobile Height & Small Screens (e.g. iPhone SE 375x667, Android compacts) */
+@media (max-height: 680px) {
+  .top-island {
+    top: 4px;
+    padding: 3px 8px;
+    transform: scale(0.92);
+  }
+  .scene-3d {
+    padding: 34px 6px 3px;
+  }
+  .calculator-card {
+    padding: 6px 8px;
+    max-height: calc(100dvh - 38px);
+    border-radius: 20px;
+  }
+  .hardware-header {
+    margin-bottom: 2px;
+  }
+  .solar-panel {
+    height: 12px;
+    width: 80px;
+  }
+  .calc-display {
+    min-height: 48px;
+    padding: 4px 8px;
+    margin-bottom: 3px;
+  }
+  .display-value {
+    font-size: 20px;
+  }
+  .display-expression {
+    min-height: 12px;
+    font-size: 10px;
+  }
+  .quick-mode-bar {
+    margin-bottom: 3px;
+    padding: 0;
+    gap: 2px;
+  }
+  .quick-mode-tab {
+    padding: 2px 4px;
+    font-size: 8.5px;
+  }
+  .calc-keypad {
+    gap: 3px;
+  }
+  .scientific-drawer {
+    gap: 2px;
+  }
+  .scientific-mode .scientific-drawer {
+    max-height: 100px;
+    margin-bottom: 2px;
+  }
+  .standard-grid {
+    gap: 3px;
+  }
+  .key-btn {
+    height: clamp(26px, 4.2vh, 32px);
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  .key-btn.btn-sci {
+    height: clamp(20px, 3vh, 24px);
+    font-size: 9px;
+    border-radius: 5px;
+  }
+  .keyboard-hint {
+    display: none !important;
   }
 }
