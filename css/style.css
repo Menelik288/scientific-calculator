@@ -124,17 +124,14 @@ body[data-theme="aurora"] {
 
 html, body {
   width: 100%;
-  height: 100%;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: var(--font-main);
   background-color: var(--theme-bg-1);
   color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: block;
   position: relative;
   transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }

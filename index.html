@@ -3,29 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Apple iOS 26 Liquid Glass 3D Scientific Calculator</title>
+  <title>OmniTools - All-in-One Modern Tools App & Scientific Calculator</title>
   
   <!-- Apple Web App & Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0a0b1e">
-  <meta name="description" content="Ultra-advanced scientific calculator in Apple iOS 26 Liquid Glass design with GSAP physics and tactile acoustics.">
+  <meta name="description" content="All-in-One modern tools app with scientific calculator, unit converter, QR studio, timer & stopwatch, percentage calculator, text tools, date & age, sensors, and internet speed test.">
 
   <!-- Google Fonts: Inter, Outfit & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Stylesheet -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tools.css">
 </head>
 <body data-theme="nebula">
 
   <!-- Ambient Liquid Canvas Background -->
   <canvas id="liquid-canvas"></canvas>
 
-  <!-- Top Apple Dynamic Island Bar -->
-  <header class="top-island" role="toolbar" aria-label="Calculator Controls">
+  <!-- Global Floating Toast Notification -->
+  <div class="omni-toast" id="omni-toast">Ready</div>
+
+  <div class="app-shell">
+    <!-- Top Modern Glass Header -->
+    <header class="app-header">
+      <a href="#" class="app-brand" title="OmniTools Home">
+        <span class="brand-icon">✨</span>
+        <span class="brand-title">OmniTools</span>
+      </a>
+      <div class="app-header-actions">
+        <button id="btn-header-sound" class="icon-btn active" title="Toggle Sound Effects" aria-label="Toggle Sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </button>
+        <button id="btn-header-theme" class="icon-btn" title="Cycle Themes" aria-label="Cycle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+        </button>
+        <button id="btn-open-settings" class="icon-btn" title="Settings" aria-label="Open Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION 1: HOME VIEW -->
+    <main id="view-home">
+      <!-- Hero Header -->
+      <section class="home-hero">
+        <div class="hero-greeting">Daily Utilities Suite</div>
+        <h1 class="hero-title">All-in-One Tools</h1>
+      </section>
+
+      <!-- Instant Search Bar -->
+      <div class="home-search-wrap" role="search">
+        <svg class="home-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="home-search-input" class="home-search-input" placeholder="Search any tool (e.g. converter, qr, timer, percent)..." autocomplete="off" />
+        <button id="home-search-clear" class="home-search-clear" style="display:none;" title="Clear search">✕</button>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div class="home-cat-bar" role="tablist" aria-label="Tool Categories">
+        <button class="home-cat-chip active" data-cat="all">⚡ All Tools</button>
+        <button class="home-cat-chip" data-cat="math">🧮 Math & Finance</button>
+        <button class="home-cat-chip" data-cat="daily">⏱️ Daily & Time</button>
+        <button class="home-cat-chip" data-cat="text">📝 Text & Code</button>
+        <button class="home-cat-chip" data-cat="sensors">🧭 Sensors & Hardware</button>
+      </div>
+
+      <!-- Favorites Section -->
+      <section class="home-section" id="home-favorites-section">
+        <div class="section-title-row">
+          <span class="section-title">⭐ Favorites</span>
+        </div>
+        <div class="favs-chips-grid" id="home-favorites-grid"></div>
+      </section>
+
+      <!-- Recently Used Section -->
+      <section class="home-section" id="home-recents-section">
+        <div class="section-title-row">
+          <span class="section-title">🕒 Recently Used</span>
+        </div>
+        <div class="recents-grid" id="home-recents-grid"></div>
+      </section>
+
+      <!-- All Tools Grid Section -->
+      <section class="home-section">
+        <div class="section-title-row">
+          <span class="section-title">🛠️ All Tools</span>
+        </div>
+        <div class="tools-cards-grid" id="home-all-tools-grid"></div>
+        <div class="tools-empty-state" id="home-tools-empty">
+          <span class="empty-icon">🔍</span>
+          <p style="color:#fff; font-weight:600;">No tools match your search</p>
+          <p style="font-size:12px; color:var(--text-tertiary);">Try searching for "converter", "qr", "timer", or "speed"</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- SECTION 2: TOOL VIEW CONTAINER -->
+    <section id="view-tool" style="display:none;">
+      <!-- Tool View Top Sticky Bar -->
+      <nav class="tool-view-nav">
+        <button class="tool-back-btn" id="tool-btn-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Tools
+        </button>
+        <div class="tool-header-center">
+          <span class="tool-header-icon" id="tool-header-icon">🧮</span>
+          <span class="tool-header-title" id="tool-header-title">Scientific Calculator</span>
+          <span class="tool-card-badge" id="tool-header-badge">Instant</span>
+        </div>
+        <button class="tool-fav-btn" id="tool-header-fav-btn" title="Toggle Favorite">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Tool Containers -->
+      <div class="tool-content-wrapper" id="tool-container-converter" data-tool-id="converter"></div>
+      <div class="tool-content-wrapper" id="tool-container-percentage" data-tool-id="percentage"></div>
+      <div class="tool-content-wrapper" id="tool-container-qr" data-tool-id="qr"></div>
+      <div class="tool-content-wrapper" id="tool-container-timer" data-tool-id="timer"></div>
+      <div class="tool-content-wrapper" id="tool-container-date" data-tool-id="date"></div>
+      <div class="tool-content-wrapper" id="tool-container-text" data-tool-id="text"></div>
+      <div class="tool-content-wrapper" id="tool-container-flashlight" data-tool-id="flashlight"></div>
+      <div class="tool-content-wrapper" id="tool-container-compass" data-tool-id="compass"></div>
+      <div class="tool-content-wrapper" id="tool-container-speedtest" data-tool-id="speedtest"></div>
+
+      <!-- Preserved Calculator Wrapper -->
+      <div class="tool-content-wrapper active" id="tool-container-calculator" data-tool-id="calculator">
+
+        <!-- Top Apple Dynamic Island Bar -->
+        <header class="top-island" role="toolbar" aria-label="Calculator Controls">
     <div class="island-actions">
       <!-- Eye-Catching Mode Menu Button -->
       <button id="btn-mode-menu" class="mode-selector-btn eye-catching-pulse" title="Select Scientific Mode (COMP, BASE-N, EQN, MATRIX, STAT, MEM)" aria-label="Open Modes">
@@ -647,20 +774,141 @@
     <kbd>Enter</kbd>
     <kbd>Esc</kbd>
   </footer>
+</div><!-- /#tool-container-calculator -->
+</section><!-- /#view-tool -->
+</div><!-- /.app-shell -->
 
-  <!-- GSAP Library: Local bundle first, CDN fallback -->
-  <script src="vendor/gsap.min.js"></script>
-  <script>
-    if (typeof gsap === 'undefined') {
-      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
-    }
-  </script>
+<!-- Floating Bottom Navigation -->
+<nav class="bottom-nav" role="navigation" aria-label="Main Navigation">
+  <button class="bottom-nav-item active" data-nav="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span>Home</span>
+  </button>
+  <button class="bottom-nav-item" data-nav="favorites">
+    <span class="bottom-nav-icon">⭐</span>
+    <span>Favorites</span>
+  </button>
+  <button class="bottom-nav-item" data-nav="calculator">
+    <span class="bottom-nav-icon">🧮</span>
+    <span>Calculator</span>
+  </button>
+  <button class="bottom-nav-item" data-nav="settings">
+    <span class="bottom-nav-icon">⚙️</span>
+    <span>Settings</span>
+  </button>
+</nav>
 
-  <!-- Application Logic Modules -->
-  <script src="js/audio.js"></script>
-  <script src="js/calculator.js"></script>
-  <script src="js/liquid-bg.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/app.js"></script>
+<!-- Settings Modal Dialog -->
+<div class="modal-overlay" id="modal-settings">
+  <div class="settings-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="settings-dialog-title">
+    <div class="settings-header">
+      <h2 class="settings-title" id="settings-dialog-title">App Settings & Preferences</h2>
+      <button class="settings-close-btn" id="settings-btn-close" aria-label="Close Settings">✕</button>
+    </div>
+
+    <!-- Themes -->
+    <div class="settings-group">
+      <div class="settings-group-title">Liquid Aesthetic Themes</div>
+      <div class="settings-themes-grid">
+        <button class="settings-theme-option active" data-theme="nebula">
+          <span class="theme-swatch swatch-nebula"></span>
+          <span>Liquid Nebula</span>
+        </button>
+        <button class="settings-theme-option" data-theme="frost">
+          <span class="theme-swatch swatch-frost"></span>
+          <span>Titanium Frost</span>
+        </button>
+        <button class="settings-theme-option" data-theme="amber">
+          <span class="theme-swatch swatch-amber"></span>
+          <span>Solar Amber</span>
+        </button>
+        <button class="settings-theme-option" data-theme="aurora">
+          <span class="theme-swatch swatch-aurora"></span>
+          <span>Emerald Aurora</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Toggles -->
+    <div class="settings-group">
+      <div class="settings-group-title">Feedback & Haptics</div>
+      <div class="settings-toggle-row">
+        <div class="settings-toggle-label">
+          <span class="toggle-primary">Tactile Sound Effects</span>
+          <span class="toggle-desc">Web Audio synthesizer clicks & acoustic chimes</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle-sound-switch" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="settings-toggle-row">
+        <div class="settings-toggle-label">
+          <span class="toggle-primary">Haptic Vibration</span>
+          <span class="toggle-desc">Physical vibration on supported touch devices</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle-haptic-switch" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Privacy & Offline Operation -->
+    <div class="settings-group">
+      <div class="settings-group-title">Privacy & Security</div>
+      <div class="settings-info-box">
+        🔒 <strong>100% Private & On-Device:</strong> All calculations, conversions, camera QR frames, and sensor readings run strictly client-side on your device. Zero user data is collected, logged, or transmitted.
+      </div>
+    </div>
+
+    <!-- Data Management -->
+    <div class="settings-group">
+      <div class="settings-group-title">Storage & History</div>
+      <button class="settings-btn-danger" id="btn-clear-favs">Reset Favorites</button>
+      <button class="settings-btn-danger" id="btn-clear-recents">Clear Recents</button>
+    </div>
+
+    <!-- About & Version -->
+    <div class="settings-group" style="margin-bottom:0;">
+      <div class="settings-group-title">About OmniTools</div>
+      <div style="font-size:12px; color:var(--text-tertiary); line-height:1.6;">
+        OmniTools All-in-One Suite v2.0<br>
+        Engineered with iOS 26 Liquid Glass Glassmorphism, GSAP physics, Web Audio synthesis & HTML5 Canvas.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GSAP Library: Local bundle first, CDN fallback -->
+<script src="vendor/gsap.min.js"></script>
+<script>
+  if (typeof gsap === 'undefined') {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+  }
+</script>
+
+<!-- Local QR Libraries -->
+<script src="vendor/qrcode.min.js"></script>
+<script src="vendor/jsQR.min.js"></script>
+
+<!-- Application Logic Modules -->
+<script src="js/audio.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/liquid-bg.js"></script>
+<script src="js/animations.js"></script>
+
+<!-- OmniTools Subsystem Modules -->
+<script src="js/tools/converter.js"></script>
+<script src="js/tools/qr.js"></script>
+<script src="js/tools/timer.js"></script>
+<script src="js/tools/percentage.js"></script>
+<script src="js/tools/text.js"></script>
+<script src="js/tools/date.js"></script>
+<script src="js/tools/sensors.js"></script>
+<script src="js/tools/speedtest.js"></script>
+<script src="js/tools-manager.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

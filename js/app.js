@@ -863,6 +863,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // KEYBOARD SUPPORT
   // ==========================================
   window.addEventListener('keydown', (e) => {
+    // Only capture keyboard calculator keys when on calculator tool
+    if (window.toolsManager && window.toolsManager.activeToolId !== 'calculator') {
+      return;
+    }
+
     // If user is typing in an input field inside a sheet, ignore global hotkeys
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
       return;
@@ -914,4 +919,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial draw
   updateDisplay(false);
+
+  // Initialize OmniTools Manager
+  if (window.ToolsManager) {
+    window.toolsManager = new window.ToolsManager();
+    window.toolsManager.init();
+  }
 });
