@@ -13,7 +13,7 @@ class ToolsManager {
         category: 'math',
         categoryName: 'Math & Finance',
         icon: '🧮',
-        badge: 'iOS 26 3D',
+        badge: 'Scientific 3D',
         desc: 'Advanced scientific math, trigonometry, base-n conversions, matrices, equation solvers & statistics.',
         tags: ['math', 'calculate', 'scientific', 'trig', 'equation', 'matrix', 'base-n', 'hex', 'algebra']
       },
